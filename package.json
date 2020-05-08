@@ -6,6 +6,7 @@
   },
   "main": "./build/ganache-core.node.cli.js",
   "scripts": {
+    "commit": "git-cz",
     "start": "node cli.js",
     "build": "webpack-cli --config ./webpack/webpack.node.config.js",
     "docker": "docker build -t trufflesuite/ganache-cli . && docker run -p 8545:8545 trufflesuite/ganache-cli",
@@ -22,7 +23,10 @@
     "ethereumjs-util"
   ],
   "devDependencies": {
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
     "ganache-core": "2.10.2",
+    "husky": "^4.2.5",
     "js-scrypt": "0.2.0",
     "node-loader": "^0.6.0",
     "on-build-webpack": "^0.1.0",
@@ -40,5 +44,15 @@
     "type": "git",
     "url": "https://github.com/trufflesuite/ganache-cli"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  }
 }
